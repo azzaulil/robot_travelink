@@ -4,19 +4,6 @@ Library    BuiltIn
 Resource    variable.resource
 
 *** Keywords ***
-
-Search Site
-    [Arguments]    ${site_name}
-    Input Text   xpath=//input[@class="vs-select__input"]    ${site_name}
-    # Click Element   xpath=//input[@class="vs-select__input"]
-    Sleep    3
-    Click Element    ${tmii}
-    Click Element    xpath=//input[@name="datepicker"]
-    Sleep    1
-    Click Element    xpath=//button/div/span[contains(text(), "30")]
-    Click Element    xpath=//button[contains(text(), 'Cari')]
-    Wait Until Element Is Visible    xpath=//font[contains(text(), 'Eksplor Destinasi')]     timeout=5
-
 Eksplor Destinasi Section
     Go Back
     Sleep     3s

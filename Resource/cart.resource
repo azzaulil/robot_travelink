@@ -11,21 +11,26 @@ Resource    home.resource
 #     Sleep     3s    
 #     Click Element    xpath=//button[@class="bg-mainGreen text-white rounded-full w-10 h-10 text-lg font-semibold hover:bg-lime-600"]
 #     Sleep    3s
-Add to cart
-	# Scroll Element Into View	xpath=//body[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/a[1]/div[1]/img[1]
-	# Sleep	2s
-	# Click Element	xpath=//body[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/a[1]/div[1]/img[1]
-	Sleep	1
-    Scroll Element Into View    //button[contains(text(), "Beli Langsung")]
-    Sleep    1
-    Click Element    xpath=//body/div[@id='__nuxt']/div[@id='__layout']/div[1]/div[1]/div[4]/div[2]/div[1]/div[5]/div[1]/form[1]/div[2]/div[3]/div[1]/div[2]/div[1]/div[1]/button[2]
+Add to Cart Ticket
+    [Arguments]    ${ticket_name}    ${ticket_qty}
+    Scroll Element Into View    xpath=//div[@class="p-6"]/div/div/h4[contains(text(), "${ticket_name}")]
+    Scroll Element Into View    xpath=//*[@id="__layout"]/div/div[1]/div[4]/div[2]/div/div[5]/div/form/div[2]/div[4]/button[1]
+    
+    FOR    ${INDEX}    IN RANGE    0   ${ticket_qty}
+        Click Element    xpath=//*[@id="__layout"]/div/div[1]/div[4]/div[2]/div/div[5]/div/form/div[2]/div[3]/div/div[2]/div/div/button[2]
+    END
+
     Click Element    //button[@type="submit"]
     Wait Until Element Is Visible    xpath=//h4[contains(text(), "Berhasil")]
-    Sleep    4
+    Sleep    3s
+    # Get Text    //*[@id="__layout"]/div/nav/div[1]/a/p    ${ticket_qty}    #get ticket qty
+    # Click Element    xpath=//button[contains(text(), "Beli Langsung")]
 
 Go to Cart Page
     Click Element    xpath=//a[@href="/cart"]
     Wait Until Element Is Visible    xpath=//h2[@class="text-xl font-semibold py-2"]    timeout=10s
+    Capture Page Screenshot    filename=${current test result path}/ticket_chosen.png
+    File Should Exist    ${current test result path}/ticket_chosen.png
 
 Edit Cart Item
     Click Element    xpath=//body/div[@id='__nuxt']/div[@id='__layout']/div[1]/div[1]/div[1]/div[2]/div[1]/div[2]/div[2]/div[1]/div[2]/div[2]/div[1]/div[1]/div[1]/div[1]/div[1]/button[1]
@@ -65,9 +70,3 @@ Delete All Cart Items
 When Cart Item Is empty
     #should use if else condition
     Page Should Contain Element    xpath=//h1[contains(text(), "Keranjang Kosong")]
-
-Cart and checkout flow
-    # Run Keyword    Search Site    Prambanan
-    # Run Keyword    Add to cart
-    Run Keyword    Go to Cart Page
-    Run Keyword    Go to Checkout Page
