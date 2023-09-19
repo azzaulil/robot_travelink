@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 5.0.1 (Python 3.9.13 on win32)" generated="20230329 05:13:10.179" rpa="false" schemaversion="3">
-<suite id="s1" name="Robot Interactive Console" source="c:\Users\Fahmi\.vscode\extensions\robocorp.robotframework-lsp-1.9.0\src\robotframework_ls\vendored\robotframework_interactive\robot_interactive_console.robot">
+<robot generator="Robot 5.0.1 (Python 3.9.13 on win32)" generated="20230815 19:00:51.696" rpa="false" schemaversion="3">
+<suite id="s1" name="Robot Interactive Console" source="c:\Users\Fahmi\.vscode\extensions\robocorp.robotframework-lsp-1.11.0\src\robotframework_ls\vendored\robotframework_interactive\robot_interactive_console.robot">
 <test id="s1-t1" name="Default Task/Test" line="5">
 <kw name="Interpreter Main Loop" library="MainLoop">
-<kw name="Search Site">
-<arg>tmii</arg>
-<msg timestamp="20230329 05:13:11.833" level="FAIL">No keyword with name 'Search Site' found.</msg>
-<status status="FAIL" starttime="20230329 05:13:11.832" endtime="20230329 05:13:11.833"/>
+<kw name="Go to Checkout Page">
+<msg timestamp="20230815 19:00:53.533" level="FAIL">No keyword with name 'Go to Checkout Page' found.</msg>
+<status status="FAIL" starttime="20230815 19:00:53.533" endtime="20230815 19:00:53.533"/>
 </kw>
-<status status="PASS" starttime="20230329 05:13:10.223" endtime="20230329 05:13:19.600"/>
+<status status="PASS" starttime="20230815 19:00:51.780" endtime="20230815 19:01:37.898"/>
 </kw>
-<status status="PASS" starttime="20230329 05:13:10.222" endtime="20230329 05:13:19.601"/>
+<status status="PASS" starttime="20230815 19:00:51.779" endtime="20230815 19:01:37.898"/>
 </test>
-<status status="PASS" starttime="20230329 05:13:10.182" endtime="20230329 05:13:19.603"/>
+<status status="PASS" starttime="20230815 19:00:51.700" endtime="20230815 19:01:37.901"/>
 </suite>
 <statistics>
 <total>

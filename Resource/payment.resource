@@ -8,30 +8,30 @@ Resource    cart.resource
 Choose Payment Method
     [Arguments]    ${payment_method}
     Sleep     3s
-    # Scroll Element Into View    xpath=//span[contains(text(),'${payment_method}')]
-    # Click Element    xpath=//span[contains(text(),'${payment_method}')]
-    Scroll Element Into View    ${QRIS}
+    Scroll Element Into View    xpath=//span[contains(text(),'${payment_method}')]
+    Click Element    xpath=//span[contains(text(),'${payment_method}')]
+    # Scroll Element Into View    ${QRIS}
     Sleep    3s
-    Click Element    ${QRIS}
+    # Click Element    ${QRIS}
     Scroll Element Into View    xpath=//*[@id="__layout"]/div/div[1]/div[2]/div[2]/div[2]/div/button[1]
     Click Element    xpath=//*[@id="checkbox"]
     Click Element    xpath=//*[@id="__layout"]/div/div[1]/div[2]/div[2]/div[2]/div/button[1]
-    Sleep    5s
+    Wait Until Page Contains    halaman pembayaran
 
 Pay with Credit Card
     [Arguments]    ${card_number}    ${card_name}    ${card_expired}    ${card_cvv}
-    Sleep    5s
     Switch Window    locator=NEW
-    Input Text    //input[@id='cstCCNumber']    ${card_number}
-    Input Text    //input[@id='cstCCName']    ${card_name}  
-    Input Text    //input[@id='cc-exp-date']    ${card_expired} 
-    Input Text    //input[@id='cc-cvv']    ${card_cvv}
+    Wait Until Element Is Visible    cstCCNumber    timeout=40s
+    Input Text    cstCCNumber    ${card_number}
+    Input Text    cstCCName    ${card_name}  
+    Input Text    cc-exp-date    ${card_expired} 
+    Input Text    cc-cvv    ${card_cvv}
     # Scroll Element Into View    btnPayCC
     # Sleep    3s
     # Click Button    btnPayCC
-    Press Keys    //input[@id='cc-cvv']    ENTER
-    Sleep    10
-    Input Text    //input[@id='otp']    123456
+    Press Keys    cc-cvv    ENTER
+    Wait Until Element Is Visible    otp    timeout=20s
+    Input Text    otp    123456
     Click Element    //input[@value='Confirm']
     Sleep    3s
     # Wait Until Element Is Visible    xpath=//div[contains(text(),'Success')]
@@ -39,6 +39,7 @@ Pay with Credit Card
 Pay with VA
     Switch Window    locator=NEW
     # ${va_number}=    Get Text    xpath=//input[@class='copyva']    # get VA number
+    Wait Until Element Is Visible    xpath=//*[@id="card-summary-wrap"]/span[2]/span/div[2]/img    timeout=10s
     Click Element    xpath=//*[@id="card-summary-wrap"]/span[2]/span/div[2]/img    # copy VA button  
     Sleep    3s
     ### Open ATM Simulator in new tab
@@ -48,7 +49,7 @@ Pay with VA
     Go To    ${atm_simulator_url}
     Sleep    3s
     Click Element    bankcode
-    Click Element    xpath=//option[@value='70009']
+    Click Element    xpath=//option[@value='70009']    #bank code mandiri
     # Input Text    rekening    ${va_number}
     Click Element    //input[@id='rekening']
     Press Keys    //input[@id='rekening']    CTRL+V
@@ -62,18 +63,15 @@ Pay with VA
 Pay with QRIS
     Switch Window    locator=NEW
     Wait Until Element Is Visible    xpath=//span[contains(text(),'Status Pembayaran')]    timeout=10s
-    Sleep    20s
 
 Check Payment Status
     Click Button    //button[@class='btn cek-status']
-    Wait Until Element Is Visible    //div[contains(text(),'Success')]
+    Wait Until Element Is Visible    //div[contains(text(),'Success')]    timeout=10s
+    Sleep    3s
     Capture Page Screenshot    filename=${current test result path}/success_payment.png
     File Should Exist    ${current test result path}/success_payment.png
 
-back to home
-    Switch Window    locator=MAIN
-    Sleep    3s
-    Click Link    /
-    Sleep    3s
-
+View purchased ticket from payment page
+    Click Button    //button[@class='button-back']
+    Wait Until Element Is Visible    //h1[contains(text(), 'Riwayat Transaksi')]
 
